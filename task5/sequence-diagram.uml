@@ -1,0 +1,28 @@
+@startuml
+actor Оператор as Operator
+participant "MES UI" as UI
+participant "MES API" as API
+participant "Кеш (Redis)" as Cache
+participant "MES DB" as DB
+participant "CDN" as CDN
+
+Operator -> UI: Запрос списка заказов
+UI -> API: GET /orders
+API -> Cache: Проверка ключа "orders:list"
+alt Кеш найден
+    Cache --> API: Возврат данных
+    API --> UI: Отображение списка
+else Кеш отсутствует
+    API -> DB: Запрос списка заказов
+    DB --> API: Данные
+    API -> Cache: Сохранение с TTL=300 сек
+    API --> UI: Отображение списка
+end
+
+Operator -> UI: Изменение статуса заказа
+UI -> API: PUT /orders/{id}/status
+API -> DB: Обновление статуса
+API -> Cache: Инвалидация ключей "orders:list"
+API -> CDN: Инвалидация 3D-шаблонов (если требуется)
+API --> UI: Подтверждение
+@enduml
