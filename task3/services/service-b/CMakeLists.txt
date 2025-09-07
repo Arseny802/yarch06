@@ -5,17 +5,17 @@ set(VENDOR "Arseny802")
 option(BUILD_TESTS "Build test programs" ON)
 
 find_package(argparse CONFIG REQUIRED)
+find_package(fmt REQUIRED)
 find_package(opentelemetry-cpp REQUIRED)
 find_package(Crow REQUIRED)
 
 add_library(${PROJECT_NAME}_OBJ OBJECT
-  src/consumer.cc
-  src/producer.cc
   src/service.cc
 )
 target_link_libraries(${PROJECT_NAME}_OBJ PUBLIC
   opentelemetry-cpp::opentelemetry-cpp
   Crow::Crow
+  fmt::fmt
 )
 set_target_properties(${PROJECT_NAME}_OBJ PROPERTIES
   CXX_STANDARD 20

@@ -10,8 +10,6 @@ find_package(Crow REQUIRED)
 find_package(cpr REQUIRED)
 
 add_library(${PROJECT_NAME}_OBJ OBJECT
-  src/consumer.cc
-  src/producer.cc
   src/service.cc
 )
 target_link_libraries(${PROJECT_NAME}_OBJ PUBLIC

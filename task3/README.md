@@ -33,7 +33,7 @@ kubectl apply -f k8s/jaeger-instance.yaml
 ### 4. Сборка и деплой сервисов
 ```bash
 # Сборка образов
-minikube image build -t service-a:latest services/cpp-builder/
+minikube image build -t cpp-builder:latest services/cpp-builder/ # about 7 mins
 minikube image build -t service-a:latest services/service-a/
 minikube image build -t service-b:latest services/service-b/
 
@@ -56,6 +56,7 @@ kubectl exec -it $(kubectl get pods -l app=service-a -o jsonpath='{.items[0].met
 ```
 
 ## Структура проекта
+- `services/cpp-builder/` - Контейнер для сборки других контейнеров
 - `services/service-a/` - Исходный код service-a
 - `services/service-b/` - Исходный код service-b  
 - `k8s/services.yaml` - Конфигурация Kubernetes для сервисов
