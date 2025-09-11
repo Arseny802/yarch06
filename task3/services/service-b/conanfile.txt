@@ -1,0 +1,13 @@
+[requires]
+argparse/3.2
+fmt/11.2.0
+crowcpp-crow/1.2.1
+opentelemetry-cpp/1.21.0
+gtest/1.13.0
+
+[generators]
+CMakeDeps
+CMakeToolchain
+
+[layout]
+cmake_layout
